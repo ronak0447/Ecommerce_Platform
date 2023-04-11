@@ -23,6 +23,9 @@ import Payment from './component/Cart/Payment';
 import OrderSuccess from './component/Cart/OrderSucces';
 import MyOrders from './component/Order/MyOrders';
 import OrderDetails from './component/Order/OrderDetails';
+import DashBoard from './component/Admin/DashBoard';
+import ProductList from './component/Admin/ProductList';
+import NewProduct from './component/Admin/NewProduct';
 
 import store from './Store';
 import { loadUser } from './Actions/UserAction';
@@ -42,7 +45,7 @@ function App() {
     transition: transitions.SCALE,
   };
   const dispatch = useDispatch();
-  const {user,isAuthenticated} = useSelector((state)=>state.user)
+  const {user,isAuthenticated} = useSelector((state)=>state.user);
   const [stripeApiKey , setStripeApiKey] = useState("");
   
   async function getStripeApiKey(){
@@ -123,6 +126,21 @@ function App() {
           <Route exact path="/order/:id" element={
             <ProtectedRoutes >
               <OrderDetails/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/dashboard" element={
+            <ProtectedRoutes isAdmin={true}>
+              <DashBoard/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/products" element={
+            <ProtectedRoutes isAdmin={true}>
+              <ProductList/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/products" element={
+            <ProtectedRoutes isAdmin={true}>
+              <NewProduct/>
             </ProtectedRoutes>
           }/>
           <Route exact path="/api/forgot" element={<ForgotPassword/>}/>
