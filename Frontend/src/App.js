@@ -26,6 +26,10 @@ import OrderDetails from './component/Order/OrderDetails';
 import DashBoard from './component/Admin/DashBoard';
 import ProductList from './component/Admin/ProductList';
 import NewProduct from './component/Admin/NewProduct';
+import UpdateProduct from './component/Admin/UpdateProduct';
+import Orders from './component/Admin/OrderList';
+import UpdateOrder from './component/Admin/UpdateOrder';
+import UsersList from './component/Admin/UsersList';
 
 import store from './Store';
 import { loadUser } from './Actions/UserAction';
@@ -138,9 +142,29 @@ function App() {
               <ProductList/>
             </ProtectedRoutes>
           }/>
-          <Route exact path="/admin/products" element={
+          <Route exact path="/admin/product" element={
             <ProtectedRoutes isAdmin={true}>
               <NewProduct/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/product/:id" element={
+            <ProtectedRoutes isAdmin={true}>
+              <UpdateProduct/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/orders" element={
+            <ProtectedRoutes isAdmin={true}>
+              <Orders/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/order/:id" element={
+            <ProtectedRoutes isAdmin={true}>
+              <UpdateOrder/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/users" element={
+            <ProtectedRoutes isAdmin={true}>
+              <UsersList/>
             </ProtectedRoutes>
           }/>
           <Route exact path="/api/forgot" element={<ForgotPassword/>}/>

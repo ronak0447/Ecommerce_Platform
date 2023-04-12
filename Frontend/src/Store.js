@@ -3,13 +3,13 @@ import { legacy_createStore ,combineReducers,applyMiddleware} from 'redux'
 import thunk from 'redux-thunk';
 
 import {composeWithDevTools} from "redux-devtools-extension"
-import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer } from './Reducers/Productreducer';
-import { forgotPasswordReducer, profileReducer, userReducer } from './Reducers/UserReducer';
+import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productsReducer } from './Reducers/Productreducer';
+import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from './Reducers/UserReducer';
 import { cartReducer } from './Reducers/CartReducer';
-import {myOrdersReducer, newOrderReducer, orderDetailsReducer} from './Reducers/OrderReducer'
+import {allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer} from './Reducers/OrderReducer'
 
 const reducer = combineReducers({
-    products:productReducer,
+    products:productsReducer,
     productDetails:productDetailsReducer,
     user: userReducer,
     profile: profileReducer,
@@ -20,6 +20,11 @@ const reducer = combineReducers({
     orderDetails:orderDetailsReducer,
     newReview:newReviewReducer,
     newProduct:newProductReducer,
+    product:productReducer,
+    allOrders:allOrdersReducer,
+    order:orderReducer,
+    allUsers: allUsersReducer,
+    userDetails: userDetailsReducer,
 });
 
 let initialSate={

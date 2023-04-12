@@ -15,11 +15,13 @@ import {CategoryScale,
     } from 'chart.js'
 import { useDispatch,useSelector } from 'react-redux';
 import {getAdminProduct} from '../../Actions/ProductAction';
+import { getAllOrders } from '../../Actions/OrderAction';
 
 
 const DashBoard = () => {
   const dispatch = useDispatch();
   const {products} = useSelector((state)=>state.products);
+  const {orders} = useSelector((state)=>state.allOrders);
   Chart.register(
     CategoryScale,
     LinearScale,
@@ -37,7 +39,7 @@ const DashBoard = () => {
     };
   });
   useEffect(()=>{
-
+    dispatch(getAllOrders());
     dispatch(getAdminProduct());
   },[dispatch,]) ;    
     
@@ -90,7 +92,7 @@ const DashBoard = () => {
                 </Link>
                 <Link to="/admin/orders">
                     <p>Orders</p>
-                    <p>5</p>
+                    <p>{orders && orders.length}</p>
                 </Link>
                 <Link to="/admin/users">
                     <p>Users</p>
