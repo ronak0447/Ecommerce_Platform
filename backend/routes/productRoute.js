@@ -3,12 +3,14 @@ const { getAllproducts,
         createProduct, 
         updateProduct, 
         deleteProduct, 
-        getProductDetails, createProductReview, getProductReviews, deleteProductReviews } = require('../controllers/productController');
+        getProductDetails, createProductReview, getProductReviews, deleteProductReviews, getAdminproducts } = require('../controllers/productController');
 const {isAuthenticatedUser,authorizeRoles} = require('../Middleware/auth');
 
 const router= express.Router()
 
 router.route("/products").get(getAllproducts);
+
+router.route("/admin/products").get(isAuthenticatedUser,authorizeRoles("admin"),getAdminproducts);
 
 router.route("/admin/addproduct").post(isAuthenticatedUser,authorizeRoles("admin"),createProduct);
 

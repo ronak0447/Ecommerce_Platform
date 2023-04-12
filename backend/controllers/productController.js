@@ -40,6 +40,15 @@ exports.getAllproducts = catchAsyncErrors(async (req, res,next) => {
         filterdProductsCount,
     });
 });
+//Get All Products (Admin)
+exports.getAdminproducts = catchAsyncErrors(async (req, res,next) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+        success: true,
+        products,
+    });
+});
 
 //Update Products -- Admin Route
 exports.updateProduct = async (req, res, next) => {
