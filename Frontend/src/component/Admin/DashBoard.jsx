@@ -16,12 +16,14 @@ import {CategoryScale,
 import { useDispatch,useSelector } from 'react-redux';
 import {getAdminProduct} from '../../Actions/ProductAction';
 import { getAllOrders } from '../../Actions/OrderAction';
+import { getAllUsers } from '../../Actions/UserAction';
 
 
 const DashBoard = () => {
   const dispatch = useDispatch();
   const {products} = useSelector((state)=>state.products);
   const {orders} = useSelector((state)=>state.allOrders);
+  const {users} = useSelector((state)=>state.allUsers);
   Chart.register(
     CategoryScale,
     LinearScale,
@@ -41,8 +43,15 @@ const DashBoard = () => {
   useEffect(()=>{
     dispatch(getAllOrders());
     dispatch(getAdminProduct());
+    dispatch(getAllUsers());
   },[dispatch,]) ;    
     
+
+  let totalAmount=0;
+  orders && orders.forEach((item)=>{
+    totalAmount += item.totalPrice; 
+  })
+
   const chartData ={
     labels:["Intial Amount","Amount Earned"],
     datasets:[
@@ -53,7 +62,7 @@ const DashBoard = () => {
             borderWidth: 1,
             hoverBackgroundColor:'rgb(197,72,49)',
             hoverBorderColor: 'rgba(255,99,132,1)',
-            data:[0,4000],
+            data:[0,totalAmount],
         },
     ],
   };
@@ -82,7 +91,7 @@ const DashBoard = () => {
          <div className="dashboardSummary">
             <div>
                 <p>
-                    Total Amount <br /> ₹2000
+                    Total Amount <br /> ₹{totalAmount}
                 </p>
             </div>
                 <div className="dashboardSummaryBox2">
@@ -96,7 +105,7 @@ const DashBoard = () => {
                 </Link>
                 <Link to="/admin/users">
                     <p>Users</p>
-                    <p>5</p>
+                    <p>{users && users.length}</p>
                 </Link>
             </div>
          </div>

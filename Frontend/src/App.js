@@ -30,6 +30,10 @@ import UpdateProduct from './component/Admin/UpdateProduct';
 import Orders from './component/Admin/OrderList';
 import UpdateOrder from './component/Admin/UpdateOrder';
 import UsersList from './component/Admin/UsersList';
+import UpdateUser from './component/Admin/UpdateUser';
+import ProductReviews from './component/Admin/ProductReviews';
+import About from './component/layout/About/About';
+import Contact from './component/layout/Contact/Contact';
 
 import store from './Store';
 import { loadUser } from './Actions/UserAction';
@@ -39,6 +43,7 @@ import ProtectedRoutes from './component/Route/ProtectedRoutes';
 import axios from 'axios';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import NotFound from './component/layout/NotFound/NotFound';
 
 
 
@@ -68,6 +73,7 @@ function App() {
     store.dispatch(loadUser());
     getStripeApiKey();
   },[dispatch]);
+  window.addEventListener("contextmenu",(e)=>e.preventDefault());
   return (
     <Router>
        <AlertProvider template={AlertTemplate} {...options}>
@@ -167,10 +173,27 @@ function App() {
               <UsersList/>
             </ProtectedRoutes>
           }/>
+          <Route exact path="/admin/user/:id" element={
+            <ProtectedRoutes isAdmin={true}>
+              <UpdateUser/>
+            </ProtectedRoutes>
+          }/>
+          <Route exact path="/admin/reviews" element={
+            <ProtectedRoutes isAdmin={true}>
+              <ProductReviews/>
+            </ProtectedRoutes>
+          }/>
           <Route exact path="/api/forgot" element={<ForgotPassword/>}/>
           <Route exact path="/reset/:token" element={<ResetPassword/>}/>
           <Route exact path="/cart" element={<Cart/>}/>
           <Route exact path="/login" element={<LoginSignUp/>}/>
+          <Route exact path='/about' element={<About/>}/>
+          <Route exact path='/contact' element={<Contact/>}/>
+          <Route
+          element={
+            window.location.pathname === "/process/payment" ? null:<NotFound/>
+          }
+          />
         </Routes>
           <Footer />
       </AlertProvider>

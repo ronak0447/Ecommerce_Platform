@@ -1,5 +1,8 @@
 .banner{
-    background-image: linear-gradient(to right, #b86256,#3027ae8c);
+    background-image: url("../../Images/brand.jfif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
     display: flex;
     flex-direction: column;

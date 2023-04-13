@@ -82,7 +82,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${FRONTEND_URL}/reset/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/reset/${resetToken}`;
 
     const message = `Your Password reset token is :- \n\n ${resetPasswordUrl} \n\n If you have not requested this email then, ignore it.`;
 
@@ -245,7 +245,7 @@ exports.getSingleuser = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-//Update User Profile --(ADMIN)
+//Update User Profile/Role --(ADMIN)
 exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
     const newUserData = {
@@ -253,7 +253,15 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
         email: req.body.email,
         role: req.body.role,
     }
-    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+
+    // let user = await User.findById(req.params.id);
+    // if (!user) {
+    //     return next (
+    //         new ErrorHandler(`User does not exixt with id: ${req.params.id}`),400
+    //     );
+    // }
+
+     await User.findByIdAndUpdate(req.params.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: true,

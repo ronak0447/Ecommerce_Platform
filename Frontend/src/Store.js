@@ -3,7 +3,7 @@ import { legacy_createStore ,combineReducers,applyMiddleware} from 'redux'
 import thunk from 'redux-thunk';
 
 import {composeWithDevTools} from "redux-devtools-extension"
-import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productsReducer } from './Reducers/Productreducer';
+import { ReviewsReducer, newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReviewsReducer, productsReducer } from './Reducers/Productreducer';
 import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from './Reducers/UserReducer';
 import { cartReducer } from './Reducers/CartReducer';
 import {allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer} from './Reducers/OrderReducer'
@@ -25,6 +25,8 @@ const reducer = combineReducers({
     order:orderReducer,
     allUsers: allUsersReducer,
     userDetails: userDetailsReducer,
+    productReviews:productReviewsReducer,
+    Reviews:ReviewsReducer,
 });
 
 let initialSate={

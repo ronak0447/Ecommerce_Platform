@@ -216,16 +216,18 @@ exports.getProductReviews = catchAsyncErrors(async(req,res,next)=>{
 
 //Delete Reviews of Product
 exports.deleteProductReviews = catchAsyncErrors(async(req,res,next)=>{
-
     const product = await Product.findById(req.query.productId);
 
     if(!product){
         return next(new ErrorHandler("Product not found",404));
     }
 
-    const reviews = product.reviews.filter(
-        (rev)=> rev._id.toString() !== req.query.id.toString()
-    );
+    const reviews = product.reviews.filter((rev)=>{
+        if (rev._id && req.query.id) {
+            return rev._id.toString() !== req.query.id.toString();
+        }
+        return false;
+    });
 
     let avg = 0;
 
